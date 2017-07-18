@@ -11,6 +11,8 @@ function main() {
     var grid=[];
     var bestSpotX=[];
     var bestSpotY=[];
+    var tabX=[];
+    var tabY=[];
     var le=0;
     
     // game loop
@@ -39,6 +41,8 @@ function main() {
             if ((entityType===0)&&(owner==myId)) {
                 myPosX=x;
                 myPosY=y;
+                tabX.push(myPosX);
+                tabY.push(myPosY);
                 // ON REPERE LES BONS SPOTS
                 for (var line=0;line<height;line++) {
                     for (var col=0;col<width;col++) {
@@ -121,7 +125,7 @@ function main() {
         }
         if ((myPosX!=bestSpotX[0])||(myPosY!=bestSpotY[0])) {
             if (bestSpotX[0]!==undefined) {
-                print ("MOVE "+bestSpotX[0]+" "+bestSpotY[0]);
+                print ("BOMB "+bestSpotX.shift()+" "+bestSpotY.shift());
             }
             else {
                 print ("MOVE 6 5");
@@ -145,6 +149,9 @@ function main() {
                     print ("MOVE "+bestSpotX[1]+" "+bestSpotY[1]);
                     bestSpotX.shift();
                     bestSpotY.shift();
+                    if ((tabX[tabX.length-1]==tabX[tabX.length-2])&&(tabY[tabY.length-1]==tabY[tabY.length-2])) {
+                        print ("MOVE 6 5");
+                    }
                 }
             }
             else {
