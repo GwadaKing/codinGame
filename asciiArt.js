@@ -1,35 +1,37 @@
-var posLettreList= {"A":0,"B":4,"C":8,"D":12,"E":16,"F":20,"G":24,
-                    "H":28,"I":32,"J":36,"K":40,"L":44,"M":48,"N":52,"O":56,"P":60,
-                    "Q":64,"R":68,"S":72,"T":76,"U":80,"V":84,"W":88,"X":92,"Y":96,"Z":100};
 var L = parseInt(readline());
 var H = parseInt(readline());
-var TE = readline();
-var rowArr=[];
-var newArr=[];
+var s=0;
+var indArr=[];
+var alpAscii=[];
+var myTab=[];
+var str="";
+var texte = readline();
+var indice={A:0,B:L,C:L*2,D:L*3,E:L*4,F:L*5,G:L*6,H:L*7,I:L*8,
+               J:L*9,K:L*10,L:L*11,M:L*12,N:L*13,O:L*14,P:L*15,
+               Q:L*16,R:L*17,S:L*18,T:L*19,U:L*20,V:L*21,W:L*22,
+               X:L*23,Y:L*24,Z:L*25,"@":L*26,"?":L*27};
+// on stocke l'alphabet Ascii
 for (var i = 0; i < H; i++) {
-    var ROW = readline();
-    rowArr.push(ROW);
+    var alphabetAscii = readline();
+    alpAscii[i]=alphabetAscii;
 }
-
-// itère sur chaque caractère de la chaine donnée TE
-for (var x=0;x<TE.length;x++) {
-    var charByChar=TE.substring(x,x+1).toUpperCase();
-    for (var a=0;a<rowArr.length;a++) {
-        if (charByChar==="@") { charByChar="A"; }
-        var lettre=rowArr[a].substring(posLettreList[charByChar] , posLettreList[charByChar]+4);
-        newArr.concat(lettre);
-        print(lettre);
+// on stocke dans indArr les indices de chaque lettres dans la chaine ascii
+for (var s=0,le=texte.length;s<le;s++) {
+    var lettre=texte.charAt(s).toUpperCase();
+    indArr.push(indice[lettre]);
+}
+// on construit la séquence
+for (var pos=0,l=indArr.length;pos<l;pos++) {
+    for (var line=0;line<H;line++) {
+       if (pos===0) {
+           myTab[line]=alpAscii[line].substring(indArr[pos],indArr[pos]+L)
+       }
+       else if (pos>0) {
+           myTab[line]+=alpAscii[line].substring(indArr[pos],indArr[pos]+L)
+       }
     }
 }
-/*for (var y=0;y<newArr.length;y++) {
-    print(newArr[y]);
-}
- */ 
- 
-// cette fonction affiche une Lettre
-function afficheUneLettre(charByChar) {
-    var posLettreList= {"A":0,"B":4,"C":8,"D":12,"E":16,"F":20,"G":24,
-                    "H":28,"I":32,"J":36,"K":40,"L":44,"M":48,"N":52,"O":56,"P":60,
-                    "Q":64,"R":68,"S":72,"T":76,"U":80,"V":84,"W":88,"X":92,"Y":96,"Z":100};
-
+// puis on l'affiche
+for (var i=0;i<myTab.length;i++) {
+    print(myTab[i])
 }
