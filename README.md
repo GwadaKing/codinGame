@@ -1,2 +1,2 @@
 # codinGame
-Mes solutions aux challenges de CodinGame
+My Codingame multiplayer challenges code
