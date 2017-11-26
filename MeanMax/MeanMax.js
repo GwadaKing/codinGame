@@ -43,14 +43,17 @@
         // my variables
         var myReaper = {};
         var myDestroyer= {};
+        var myDoofer= {};
         var enemyDestroyer1= {};
         var enemyDestroyer2= {};
+        var enemyDoofer1= {};
+        var enemyDoofer2= {};
         var enemyReaper1 = {};
         var enemyReaper2 = {};
         var tankers = [];
         var destroyers = [];
         var wrecks = [];
-        var destinations = [];
+       
     
         // game variables
         var myScore = parseInt(readline());
@@ -141,9 +144,14 @@
             var destinationXY= {"x":parseInt(destination.substring(0,2)), "y":parseInt(destination.substring(3,5))};
             var distDestination = calcDistance(myReaper.x, myReaper.y, destinationXY.x, destinationXY.y);
             
-            // Handle reaper speed and behavior based upon the distance to the aimed waterstock
-            if (distDestination < 200) {
-                print("WAIT");
+            
+            // Reaper instructions 2
+            print(destination+" "+300);
+            // Destroyer instructions 2
+            if (myRage >= 60) {
+                print("SKILL "+myDestroyer.x, myDestroyer.y);
+            }
+            else if (myRage < 60) {
                 if (enemyScore1 > myScore) {
                     print(fightEnemy1+" "+300);
                 }
@@ -153,30 +161,33 @@
                 else {
                     print(fightEnemy1+" "+300);
                 }
-                
-                print(checkpoints.shift()+" "+300);
             }
-            else if (distDestination >= 200) {
-                print(destination+" "+300);
-                if (enemyScore1 > myScore) {
-                    print(fightEnemy1+" "+300);
-                }
-                else if (enemyScore2 > myScore) {
-                    print(fightEnemy2+" "+300);
-                }
-                else {
-                    print(fightEnemy1+" "+300);
-                }
-                
-                print(checkpoints.shift()+" "+300);
-            }
+            // Doofer instructions 2
+            print(enemyReaper2.x+" "+enemyReaper2.y+" "+300);
         }
+        
         // When no wreck is present, then rush the tankers with the destroyer, while the reaper follows him
         else if (wrecks.length === 0) {
             destination = findClosestTanker(tankers);
+            // Reaper instructions
             print(destination+" "+300);
-            print(destination+" "+300);
-            print(checkpoints.shift()+" "+300);
+            // Destroyer instructions 2
+            if (myRage >= 60) {
+                print("SKILL "+myDestroyer.x, myDestroyer.y);
+            }
+            else if (myRage < 60) {
+                if (enemyScore1 > myScore) {
+                    print(destination+" "+300);
+                }
+                else if (enemyScore2 > myScore) {
+                    print(destination+" "+300);
+                }
+                else {
+                    print(destination+" "+300);
+                }
+            }
+            // Doofer instructions 2
+            print(enemyReaper2.x+" "+enemyReaper2.y+" "+300);
         }
     }
 })();
