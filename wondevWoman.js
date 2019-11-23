@@ -245,7 +245,10 @@ function evaluateMove(grid, x, y, currentCellH) {
     let currentCellHeight = parseInt(currentCellH);
     // if target is same level(height) than current cell
     if (targetCellHeight === currentCellHeight) {
-        if (targetCellHeight === 2) {
+	if (targetCellHeight === 3) {
+                return 70;
+        }
+        else if (targetCellHeight === 2) {
             return 60;
         }
         else if (targetCellHeight === 1) {
