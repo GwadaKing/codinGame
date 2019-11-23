@@ -43,8 +43,9 @@ while (true) {
         const dir2         = inputs[3];
         possibleActions[i] = {"order":atype, "id":index, "moveDirection":dir1, "buildDirection":dir2 };
     }
+    
+    buildOrder = findBestBuild(possibleActions, grid, myUnits[0].x, myUnits[0].y);
     moveOrder  = findBestMove(possibleActions, grid, myUnits[0].x, myUnits[0].y);
-    buildOrder = findBestBuild(possibleActions, grid, myUnits[0].x, myUnits[0].y, moveOrder);
     console.log("MOVE&BUILD 0 "+moveOrder+" "+buildOrder);
     myUnits          = [];
     oppUnits         = [];
@@ -137,68 +138,66 @@ function findBestMove(validActions, grid, x, y) {
  * FIND BEST BUILD
  *
  */
-function findBestBuild(validActions, grid, x, y, bestMove) {
+function findBestBuild(validActions, grid, x, y) {
     let bestBuildVal      = 0;
     let bestBuild         = "";
     let currentCellHeight = parseInt(grid[y][x]);
     // traverse all build possibilities for best build
     for (let i = 0, l = validActions.length; i < l; i++) {
-        if (validActions[i].buildDirection !== bestMove) {
-            if (validActions[i].buildDirection === "N") {
-                let buildVal = evaluateBuild(grid, x, y-1, currentCellHeight);
-                if (buildVal > bestBuildVal) {
-                    bestBuild    = "N";
-                    bestBuildVal = buildVal;
-                }
+        if (validActions[i].buildDirection === "N") {
+            let buildVal = evaluateBuild(grid, x, y-1, currentCellHeight);
+            if (buildVal > bestBuildVal) {
+                bestBuild    = "N";
+                bestBuildVal = buildVal;
             }
-            else if (validActions[i].buildDirection === "NE") {
-                let buildVal = evaluateBuild(grid, x+1, y-1, currentCellHeight);
-                if (buildVal > bestBuildVal) {
-                    bestBuild    = "NE";
-                    bestBuildVal = buildVal;
-                }
+        }
+        else if (validActions[i].buildDirection === "NE") {
+            let buildVal = evaluateBuild(grid, x+1, y-1, currentCellHeight);
+            if (buildVal > bestBuildVal) {
+                bestBuild    = "NE";
+                bestBuildVal = buildVal;
             }
-            else if (validActions[i].buildDirection === "E") {
-                let buildVal = evaluateBuild(grid, x+1, y, currentCellHeight);
-                if (buildVal > bestBuildVal) {
-                    bestBuild    = "E";
-                    bestBuildVal = buildVal;
-                }
+        }
+        else if (validActions[i].buildDirection === "E") {
+            let buildVal = evaluateBuild(grid, x+1, y, currentCellHeight);
+            if (buildVal > bestBuildVal) {
+                bestBuild    = "E";
+                bestBuildVal = buildVal;
             }
-            else if (validActions[i].buildDirection === "SE") {
-                let buildVal = evaluateBuild(grid, x+1, y+1, currentCellHeight);
-                if (buildVal > bestBuildVal) {
-                    bestBuild    = "SE";
-                    bestBuildVal = buildVal;
-                }
+        }
+        else if (validActions[i].buildDirection === "SE") {
+            let buildVal = evaluateBuild(grid, x+1, y+1, currentCellHeight);
+            if (buildVal > bestBuildVal) {
+                bestBuild    = "SE";
+                bestBuildVal = buildVal;
             }
-            else if (validActions[i].buildDirection === "S") {
-                let buildVal = evaluateBuild(grid, x, y+1, currentCellHeight);
-                if (buildVal > bestBuildVal) {
-                    bestBuild    = "S";
-                    bestBuildVal = buildVal;
-                }
+        }
+        else if (validActions[i].buildDirection === "S") {
+            let buildVal = evaluateBuild(grid, x, y+1, currentCellHeight);
+            if (buildVal > bestBuildVal) {
+                bestBuild    = "S";
+                bestBuildVal = buildVal;
             }
-            else if (validActions[i].buildDirection === "SW") {
-                let buildVal = evaluateBuild(grid, x-1, y-1, currentCellHeight);
-                if (buildVal > bestBuildVal) {
-                    bestBuild    = "SW";
-                    bestBuildVal = buildVal;
-                }
+        }
+        else if (validActions[i].buildDirection === "SW") {
+            let buildVal = evaluateBuild(grid, x-1, y-1, currentCellHeight);
+            if (buildVal > bestBuildVal) {
+                bestBuild    = "SW";
+                bestBuildVal = buildVal;
             }
-            else if (validActions[i].buildDirection === "W") {
-                let buildVal = evaluateBuild(grid, x-1, y, currentCellHeight);
-                if (buildVal > bestBuildVal) {
-                    bestBuild    = "W";
-                    bestBuildVal = buildVal;
-                }
+        }
+        else if (validActions[i].buildDirection === "W") {
+            let buildVal = evaluateBuild(grid, x-1, y, currentCellHeight);
+            if (buildVal > bestBuildVal) {
+                bestBuild    = "W";
+                bestBuildVal = buildVal;
             }
-            else if (validActions[i].buildDirection === "NW") {
-                let buildVal = evaluateBuild(grid, x-1, y-1, currentCellHeight);
-                if (buildVal > bestBuildVal) {
-                    bestBuild    = "NW";
-                    bestBuildVal = buildVal;
-                }
+        }
+        else if (validActions[i].buildDirection === "NW") {
+            let buildVal = evaluateBuild(grid, x-1, y-1, currentCellHeight);
+            if (buildVal > bestBuildVal) {
+                bestBuild    = "NW";
+                bestBuildVal = buildVal;
             }
         }
     }
@@ -315,4 +314,5 @@ function evaluateVictory(grid) {
     // Nobody wins yet
     return 0;
 }
+
 
