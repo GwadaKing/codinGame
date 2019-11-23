@@ -210,7 +210,7 @@ function findBestBuild(validActions, grid, x, y) {
  *
  */ 
 function evaluateBuild(grid, x, y, currentCellH) {
-    let currentCellHeight = currentCellH;
+    let currentCellHeight = parseInt(currentCellH);
     // if target is just one level higher than current cell
     
     if (currentCellHeight === 0) {
